@@ -16,7 +16,7 @@ library1 = Library("Library1", book_list1)
 print(library1)
 
 print('\nВидалення не існуючої книги book3\n')
-library1.delete_book(book3)
+library1.delete_book(book2)
 
 print('\nДодавання книги book3\n')
 library1.add_book(book3)

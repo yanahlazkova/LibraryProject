@@ -17,7 +17,9 @@ class Library():
         print("Adding book...")
         self.__books_list.append(book)
 
-    def delete_book(self, book):
+    def delete_book(self, book_title):
+        book = self.find_book_title(book_title)
+
         if self.__find_book(book):
             self.__books_list.remove(book)
             print("Deleted")
@@ -34,7 +36,8 @@ class Library():
             if book.book_title == book_title:
                 found_book = book
         if found_book:
-            return f'{found_book}'
+            # return f'{found_book}'
+            return found_book
         else:
             return f'The book "{book_title}" not found.'
 
