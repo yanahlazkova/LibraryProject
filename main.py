@@ -1,5 +1,6 @@
 from book import Book
 from library import Library
+from librarian import Librarian
 
 book1 = Book("Book1", "Author1", 101, 2001)
 print(book1)
@@ -32,3 +33,8 @@ print(library1)
 
 print('\nЗнайти книгу з назвою Book3\n')
 print(library1.find_book_title('Book3'))
+
+print('\nСтворюємо біблиотекаря')
+new_libraryan = Librarian('Den-1', library1)
+print(new_libraryan.show_books_list())
+
