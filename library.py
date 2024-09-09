@@ -29,6 +29,7 @@ class Library():
         return self.__books_list.count(book)
 
     def find_book_title(self, book_title):
+        # Пошук по назві книги
         found_book = None
         for book in self.__books_list:
             if book.book_title == book_title:
@@ -52,20 +53,6 @@ class Library():
         else:
             return f"There are no books in the library \"{self.__library_name}\""
 
-# @property
-    # def library_name(self):
-    #     return self.__library_name
-    #
-    # @library_name.setter
-    # def library_name(self, library_name):
-    #     self.__library_name = library_name
-    #
-    # @property
-    # def books_list(self):
-    #     return self.__books_list
-    #
-    # @books_list.setter
-    # def books_list(self, books_list):
-    #     self.__books_list = books_list
+
 
 
