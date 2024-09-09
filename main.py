@@ -4,6 +4,7 @@ from library import Library
 book1 = Book("Book1", "Author1", 101, 2001)
 print(book1)
 
+print('\nЗміна назви книги')
 book1.book_title = "NewBook1"
 # print(book1)
 
@@ -16,7 +17,7 @@ library1 = Library("Library1", book_list1)
 print(library1)
 
 print('\nВидалення не існуючої книги book3\n')
-library1.delete_book(book2)
+library1.delete_book(book3.book_title)
 
 print('\nДодавання книги book3\n')
 library1.add_book(book3)

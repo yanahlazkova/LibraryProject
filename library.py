@@ -11,20 +11,18 @@ class Library():
         # якщо книга НЕ знайдена, додати її у список
         if self.__books_list:
             if self.__find_book(book):
-                print()
                 print(f'The Book "{book.book_title}" already exists in the list')
                 return
         print("Adding book...")
         self.__books_list.append(book)
 
     def delete_book(self, book_title):
-        book = self.find_book_title(book_title)
-
-        if self.__find_book(book):
-            self.__books_list.remove(book)
+        found_book = self.find_book_title(book_title)
+        if found_book:
+            self.__books_list.remove(found_book)
             print("Deleted")
         else:
-            print(f"You can't deleted the book \"{book.book_title}\".\n It's not in the list.")
+            print(f"You can't deleted the book \"{book_title}\".\n It's not in the list.")
 
     def __find_book(self, book):
     # Пошук книги у списку
@@ -36,10 +34,10 @@ class Library():
             if book.book_title == book_title:
                 found_book = book
         if found_book:
-            # return f'{found_book}'
             return found_book
         else:
-            return f'The book "{book_title}" not found.'
+            print(f'The book "{book_title}" not found.')
+            return False
 
     @property
     def library_name(self):
