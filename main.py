@@ -82,7 +82,7 @@ while True:
     match choice_menu:
         case 'MENU BOOKS':
             print(f'Choice {menu_books.current_menu}')
-            print(menu_books)
+            menu_books.display_menu()
         case 'MENU LIBRARY': print('Choice MENU LIBRARY')
         case 'EXIT': break
 
