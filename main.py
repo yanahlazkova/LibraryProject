@@ -43,15 +43,11 @@ print(new_libraryan.show_books_list())
 
 # Create MINE MENU
 menu_mine_items = [
-    'Books',
-    'Library (children)',
-    'Library (adult)',
-    'Librarians',
-    'EXIT'
-    # {'1': 'Books'},
-    # {'2': 'Library (children)'},
-    # {'3': 'Library (adult)'},
-    # {'4': 'Librarians'}
+    {'item': 'Books', 'menu_title': 'MENU BOOKS'},
+    {'item': 'Library (children)', 'menu_title': 'MENU LIBRARY'},
+    {'item': 'Library (adult)', 'menu_title': 'MENU LIBRARY'},
+    {'item': 'Librarians', 'menu_title': 'MENU LIBRARIAN'},
+    {'item': 'EXIT', 'menu_title': 'EXIT'}
 ]
 mine_menu = Menu('MINE MENU', menu_mine_items)
 

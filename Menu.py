@@ -1,5 +1,6 @@
 # Класс створення меню
 class Menu:
+    current_menu = 'MINE MENU'
     def __init__(self, menu_title: str, menu_list: list):
         self.__menu_title = menu_title
         self.__menu_list = menu_list
@@ -17,12 +18,13 @@ class Menu:
         print()
 
         for index, menu in enumerate(self.__menu_list):
-            print(" " * 47, index + 1, menu)
+            print(" " * 47, index + 1, menu['item'])
 
         print()
         choice =  self.get_user_choice()
-        self.change_menu(choice - 1)
-        return self.__menu_list[choice - 1]
+        self.go_to_menu(self.__menu_list[choice - 1])
+        return self.current_menu
+
     def get_user_choice(self):
         while True:
             try:
@@ -39,8 +41,10 @@ class Menu:
             except ValueError:
                 print("Invalid input. Please enter a number.")
 
-    def change_menu(self, choice_menu):
-        pass
+    def go_to_menu(self, choice_menu):
+        # Перехід до іншого меню
+        self.current_menu = choice_menu['menu_title']
+        print(f"Go to menu {self.current_menu}")
 
 
     @property
