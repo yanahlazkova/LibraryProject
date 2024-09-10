@@ -53,37 +53,36 @@ mine_menu = Menu('MINE MENU', menu_mine_items)
 
 # Create MENU BOOKS
 menu_books_items = [
-    {'1': 'Add'},
-    {'2': 'Delete'},
-    {'3': 'Find a book (title)'},
-    {'4': 'Fine a book (author)'},
-    {'5': 'List books'}
+    {'Add'},
+    {'Delete'},
+    {'Find a book (title)'},
+    {'Fine a book (author)'},
+    {'List books'},
+    {'Back to Main Menu'}
 ]
-menu_books = Menu('MENU BOOKS', menu_books_items)
+menu_books = SubMenu('MENU BOOKS', menu_books_items)
 
 # Create MENU LIBRARIES
 menu_libraries_items = [
     '1. Add book',
     '2. Delete book',
     '3. Find library',
-    '4. List libraries'
+    '4. List libraries',
+    'Choice library'
 ]
 
-menu_libraries = Menu('MENU BOOKS', menu_libraries_items)
+menu_libraries = SubMenu('MENU LIBRARY', menu_libraries_items)
 
 # Create MENU LIBRARIES
-menu_libraries_items = [
-    '1. Add book',
-    '2. Delete book',
-    '3. Find book (title)',
-    '4. Fine book (author)'
-]
 
-menu_libraries = Menu('MENU BOOKS', menu_libraries_items)
 
 # Display Mine Menu
-choice_mine_menu = mine_menu.display_menu()
-print(choice_mine_menu)
-
-# while True:
+while True:
+    choice_menu = mine_menu.display_menu()
+    match choice_menu:
+        case 'MENU BOOKS':
+            print(f'Choice {menu_books.current_menu}')
+            print(menu_books)
+        case 'MENU LIBRARY': print('Choice MENU LIBRARY')
+        case 'EXIT': break
 

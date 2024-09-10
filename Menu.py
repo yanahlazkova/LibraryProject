@@ -1,7 +1,7 @@
 # Класс створення меню
 class Menu:
     current_menu = 'MINE MENU'
-    def __init__(self, menu_title: str, menu_list: list):
+    def __init__(self, menu_title, menu_list: list):
         self.__menu_title = menu_title
         self.__menu_list = menu_list
 
@@ -28,11 +28,10 @@ class Menu:
     def get_user_choice(self):
         while True:
             try:
-                # Запрашиваем ввод пользователя
+                # Чекаємо ввод користувача
                 choice = input(f'\n{" " * 40}Select menu item:\t')
-                # Преобразуем ввод в целое число
                 choice = int(choice)
-                # Проверяем, что число находится в допустимом диапазоне
+                # Перевіряємо, що число знаходиться в допустимому діапазоні
                 if 1 <= choice <= len(self.__menu_list):
                     return choice
                 else:
@@ -44,6 +43,7 @@ class Menu:
     def go_to_menu(self, choice_menu):
         # Перехід до іншого меню
         self.current_menu = choice_menu['menu_title']
+        print(self.current_menu)
         print(f"Go to menu {self.current_menu}")
 
 
@@ -54,3 +54,8 @@ class Menu:
     @menu_list.setter
     def menu_list(self, menu_item):
         self.__menu_list.append(menu_item)
+
+class SubMenu(Menu):
+    def __init__(self, menu_title, menu_list: list):
+        super().__init__(menu_title, menu_list)
+
