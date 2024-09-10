@@ -1,6 +1,9 @@
+import Menu
 from book import Book
 from library import Library
 from librarian import Librarian
+from Menu import *
+
 
 book1 = Book("Book1", "Author1", 101, 2001)
 print(book1)
@@ -37,4 +40,54 @@ print(library1.find_book_title('Book3'))
 print('\nСтворюємо біблиотекаря')
 new_libraryan = Librarian('Den-1', library1)
 print(new_libraryan.show_books_list())
+
+# Create MINE MENU
+menu_mine_items = [
+    'Books',
+    'Library (children)',
+    'Library (adult)',
+    'Librarians',
+    'EXIT'
+    # {'1': 'Books'},
+    # {'2': 'Library (children)'},
+    # {'3': 'Library (adult)'},
+    # {'4': 'Librarians'}
+]
+mine_menu = Menu('MINE MENU', menu_mine_items)
+
+# Create MENU BOOKS
+menu_books_items = [
+    {'1': 'Add'},
+    {'2': 'Delete'},
+    {'3': 'Find a book (title)'},
+    {'4': 'Fine a book (author)'},
+    {'5': 'List books'}
+]
+menu_books = Menu('MENU BOOKS', menu_books_items)
+
+# Create MENU LIBRARIES
+menu_libraries_items = [
+    '1. Add book',
+    '2. Delete book',
+    '3. Find library',
+    '4. List libraries'
+]
+
+menu_libraries = Menu('MENU BOOKS', menu_libraries_items)
+
+# Create MENU LIBRARIES
+menu_libraries_items = [
+    '1. Add book',
+    '2. Delete book',
+    '3. Find book (title)',
+    '4. Fine book (author)'
+]
+
+menu_libraries = Menu('MENU BOOKS', menu_libraries_items)
+
+# Display Mine Menu
+choice_mine_menu = mine_menu.display_menu()
+print(choice_mine_menu)
+
+# while True:
 
