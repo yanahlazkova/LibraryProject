@@ -36,13 +36,13 @@ print('\nЗнайти книгу з назвою Book3\n')
 print(library1.find_book_title('Book3'))
 
 print('\nСтворюємо біблиотекаря')
-libraryan1 = Librarian('Deny-1', library1)
-print(libraryan1.show_books_list())
+librarian1 = Librarian('Deny-1', library1)
+print(librarian1.show_books_list())
 
-libraryan2 = Librarian('Meny-2', library2)
+librarian2 = Librarian('Meny-2', library2)
 
 
-list_librarians = [libraryan1, libraryan2]
+list_librarians = [librarian1, librarian2]
 
 # methods MENU BOOKS
 def display_list_librarians():
@@ -90,4 +90,10 @@ def add_book():
 
 # Delete book
 def delete_book():
-    pass
+    # Show list books
+    display_list_books()
+    # choice_book =
+
+
+def display_list_books():
+    print(library1)
