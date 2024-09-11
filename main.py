@@ -1,45 +1,8 @@
-import Menu
 from book import Book
-from library import Library
-from librarian import Librarian
-from Menu import *
+from menu import Menu
+from helpers import *
 
-
-book1 = Book("Book1", "Author1", 101, 2001)
-print(book1)
-
-print('\nЗміна назви книги')
-book1.book_title = "NewBook1"
-# print(book1)
-
-book2 = Book("Book2", "Author2", 102, 2002)
-book3 = Book("Book3", "Author3", 103, 2003)
-
-book_list1 = [book1, book2]
-library1 = Library("Library1", book_list1)
-
-print(library1)
-
-print('\nВидалення не існуючої книги book3\n')
-library1.delete_book(book3.book_title)
-
-print('\nДодавання книги book3\n')
-library1.add_book(book3)
-
-print()
-print(library1)
-
-print('\nДодавання вже існуючої книги book3\n')
-library1.add_book(book3)
-
-print(library1)
-
-print('\nЗнайти книгу з назвою Book3\n')
-print(library1.find_book_title('Book3'))
-
-print('\nСтворюємо біблиотекаря')
-new_libraryan = Librarian('Den-1', library1)
-print(new_libraryan.show_books_list())
+# Display list librarians
 
 # Create MINE MENU
 menu_mine_items = [
@@ -53,36 +16,74 @@ mine_menu = Menu('MINE MENU', menu_mine_items)
 
 # Create MENU BOOKS
 menu_books_items = [
-    {'Add'},
-    {'Delete'},
-    {'Find a book (title)'},
-    {'Fine a book (author)'},
-    {'List books'},
-    {'Back to Main Menu'}
+    'Add',
+    'Delete',
+    'Find a book (title)',
+    'Fine a book (author)',
+    'List books',
+    'Back to MAIN MENU'
 ]
-menu_books = SubMenu('MENU BOOKS', menu_books_items)
+menu_books = Menu('MENU BOOKS', menu_books_items)
 
 # Create MENU LIBRARIES
 menu_libraries_items = [
-    '1. Add book',
-    '2. Delete book',
-    '3. Find library',
-    '4. List libraries',
-    'Choice library'
+    'Add book',
+    'Delete book',
+    'Find library',
+    'List libraries',
+    'List book in library',
+    'Back to MAIN MENU'
 ]
 
-menu_libraries = SubMenu('MENU LIBRARY', menu_libraries_items)
+menu_libraries = Menu('MENU LIBRARY', menu_libraries_items)
 
 # Create MENU LIBRARIES
+# В меню бібліотекарів можна додати бібліотекаря, видалити, знайти, обрати бібліотекаря,
+# та при виборі бібліотекаря додати книгу в бібліотеку, видалити, знайти, вивести список книг
+menu_librarians_items = [
+    'Add librarians',
+    'Delete librarians',
+    'List librarians',
+    'Add book in library',
+    'Delete book in library',
+    'List books in library',
+    'Find book',
+    'List books'
+]
 
+menu_librarians = Menu('MENU LIBRARIANS', menu_librarians_items)
+
+def main_menu():
+    while True:
+        choice_menu = mine_menu.display_menu()
+        match choice_menu:
+            case 'MENU BOOKS':
+                print(f'Choice {choice_menu}')
+                # choice_menu = menu_books.display_sub_menu()
+                sub_menu_books()
+            case 'MENU LIBRARY':
+                print(choice_menu)
+
+                print(f'Choice {choice_menu}')
+                choice_menu = menu_libraries.display_sub_menu()
+            case 'EXIT': break
+
+
+def sub_menu_books():
+    while True:
+        choice_item = menu_books.display_sub_menu()
+        match choice_item:
+            case 'Add':
+                add_book()
+            case 'Delete':
+                delete_book()
+            case 'Find a book (title)':
+                print('Choice item ', choice_item)
+            case 'Fine a book (author)':
+                print('Choice item ', choice_item)
+            case 'List books':
+                print('Choice item ', choice_item)
+            case 'Back to MAIN MENU': break
 
 # Display Mine Menu
-while True:
-    choice_menu = mine_menu.display_menu()
-    match choice_menu:
-        case 'MENU BOOKS':
-            print(f'Choice {menu_books.current_menu}')
-            menu_books.display_menu()
-        case 'MENU LIBRARY': print('Choice MENU LIBRARY')
-        case 'EXIT': break
-
+main_menu()

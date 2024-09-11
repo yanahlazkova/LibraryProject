@@ -1,6 +1,5 @@
 # Класс створення меню
 class Menu:
-    current_menu = 'MINE MENU'
     def __init__(self, menu_title, menu_list: list):
         self.__menu_title = menu_title
         self.__menu_list = menu_list
@@ -21,9 +20,32 @@ class Menu:
             print(" " * 47, index + 1, menu['item'])
 
         print()
-        choice =  self.get_user_choice()
-        self.go_to_menu(self.__menu_list[choice - 1])
-        return self.current_menu
+        choice = self.get_user_choice()
+        choice_item = self.get_choice_menu_item(self.__menu_list[choice - 1])
+        print(f"Go to menu {choice_item}")
+
+        return choice_item
+
+    def display_sub_menu(self):
+        print("It's menu: ", self.__menu_title)
+        border = "*" * 40
+        print(border.rjust(80, " "))
+
+        print('*'.rjust(41, ' '), end="")
+        print(self.__menu_title.center(37, ' '), '*')
+
+        print(border.rjust(80, " "))
+        print()
+
+        for index, menu in enumerate(self.__menu_list):
+            print(" " * 47, index + 1, menu)
+
+        print()
+        choice = self.get_user_choice()
+        choice_item = self.__menu_list[choice - 1]
+        print(f"Go to {choice_item}")
+
+        return choice_item
 
     def get_user_choice(self):
         while True:
@@ -40,12 +62,8 @@ class Menu:
             except ValueError:
                 print("Invalid input. Please enter a number.")
 
-    def go_to_menu(self, choice_menu):
-        # Перехід до іншого меню
-        self.current_menu = choice_menu['menu_title']
-        print(self.current_menu)
-        print(f"Go to menu {self.current_menu}")
-
+    def get_choice_menu_item(self, choice_item):
+        return choice_item['menu_title']
 
     @property
     def menu_list(self):
@@ -55,7 +73,4 @@ class Menu:
     def menu_list(self, menu_item):
         self.__menu_list.append(menu_item)
 
-class SubMenu(Menu):
-    def __init__(self, menu_title, menu_list: list):
-        super().__init__(menu_title, menu_list)
 
