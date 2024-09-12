@@ -17,7 +17,9 @@ def display_menu():
         'Delete book',
         'Change book name',
         'Find book',
+        'Save to file'
     ]
+    print()
     print(border.rjust(80, " "))
 
     print('*'.rjust(41, ' '), end="")
@@ -33,6 +35,12 @@ def display_menu():
     choice = int(input())
     return choice
 
+def display_message():
+    print()
+    print(' ' * 30, end="")
+    print('Librarian not selected. Select librarians in menu item - "2"\n')
+    print(' ' * 45, end="")
+    input('Press any key')
 
 def select_librarians(list_librarians):
     display_list_librarians(list_librarians)
@@ -43,8 +51,16 @@ def select_librarians(list_librarians):
             choice = input('Select the librarians: ')
             choice = int(choice)
             if 1 <= choice <= len(list_librarians):
+                global current_librarian
+                global title_menu
+                current_librarian = list_librarians[choice - 1]
+                title_menu = f'{current_librarian.librarian}, library: "{current_librarian.library.library_name}"'
+                print()
+                print(' ' * 35, 'Your choice:')
                 print(list_librarians[choice - 1])
-                return choice - 1
+                print(' ' * 35, 'Press any key', end='')
+                input()
+                return
             elif choice == len(list_librarians) + 1:
                 break
             else:
@@ -64,18 +80,34 @@ def display_list_librarians(list_libr):
     print(' ' * 45, len(list_libr) + 1, 'EXIT')
     print('\n', ' ' * 45, end="")
 
+def indent():
+    # Робить відступ від краю
+    print()
+    print(' ' * 45, end='')
+
 def add_book():
+    indent()
     book_title = input('Enter book title: ')
+    indent()
     author = input('Enter author: ')
+    indent()
     page_count = int(input('Enter page count: '))
+    indent()
     publication_year = int(input("Enter year of publication: "))
+    indent()
     new_book = Book(book_title, author, page_count, publication_year)
     current_librarian.library.add_book(new_book)
-    print(f'Added book: \n{new_book}')
     print(f'List books of librarian {current_librarian.librarian} {current_librarian.library}')
+    indent()
+    input("Press any key")
 
-    input("Press any key: ")
-
+def delete_book():
+    print(current_librarian.library)
+    indent()
+    book_title = input('Enter book title: ')
+    current_librarian.library.delete_book(book_title)
+    indent()
+    input('Press any key')
 
 book1 = Book("Book1", "Author1", 101, 2001)
 book2 = Book("Book2", "Author2", 102, 2002)
@@ -96,41 +128,37 @@ while True:
     match choice_item:
         case 1: break
         case 2:
-            choice = select_librarians(list_librarians)
-            current_librarian = list_librarians[choice]
-            title_menu = f'{current_librarian.librarian}, library "{current_librarian.library.library_name}"'
+            # Вибір бібліотекаря
+            select_librarians(list_librarians)
 
         case 3:
-            print('current_librarian = ', current_librarian)
+            # Відображення списку книг обраного бібліотекаря
+            # print('current_librarian = ', current_librarian)
             if not current_librarian:
+                display_message()
+            else:
+                print('Librarian', current_librarian.librarian, '\n')
+                print(current_librarian.library)
                 print()
                 print(' ' * 45, end="")
-                print('Librarian not selected\n')
                 input('Press any key')
-            else:
-                print('current_librarian', current_librarian.librarian)
-                print(current_librarian.library)
         case 4:
-            print('current_librarian = ', current_librarian.librarian)
+            # Додавання книги до бібліотеки обранного бібліотекаря
             if not current_librarian:
-                print()
-                print(' ' * 45, end="")
-                print('Librarian not selected\n')
-                input('Press any key')
+                display_message()
             else:
-                print('current_librarian', current_librarian.librarian)
+                indent()
+                print(f'Librarian {current_librarian.librarian}, Library "{current_librarian.library.library_name}"\n')
                 add_book()
-                print(current_librarian.library)
+
         case 5:
-            print('current_librarian = ', current_librarian)
+            # Видалення книги з бібліотеки обранного бібліотекаря
             if not current_librarian:
-                print()
-                print(' ' * 45, end="")
-                print('Librarian not selected\n')
-                input('Press any key')
+                display_message()
             else:
-                print('current_librarian', current_librarian.librarian)
-                print(current_librarian.library)
+                indent()
+                print(f'Librarian {current_librarian.librarian}, Library "{current_librarian.library.library_name}"\n')
+                delete_book()
         case 6:
             print('current_librarian = ', current_librarian)
             if not current_librarian:

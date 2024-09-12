@@ -47,7 +47,7 @@ class Library():
     def __str__(self):
         if self.__books_list:
             i = 0
-            return (f'List of books in librery "{self.__library_name}":\n'+
+            return (f'List of books in librery "{self.__library_name}":\n\n'+
                 '\n'.join(f'{i+1}.{book.book_title} {book.author} ({book.page_count} pages, '
                           f'{book.publication_year} year)' for i, book in enumerate(self.__books_list)))
         else:
