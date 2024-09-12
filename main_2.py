@@ -1,6 +1,7 @@
 from librarian import Librarian
 from library import Library
 from book import Book
+import os, json
 
 title_menu = 'MAIN MENU'
 current_librarian = ''
@@ -109,6 +110,53 @@ def delete_book():
     indent()
     input('Press any key')
 
+def change_book_name():
+    print(current_librarian.library)
+    change_book = find_book()
+    print(change_book)
+    indent()
+    new_book_title = input('Enter new book title: ')
+    change_book.book_title = new_book_title
+    indent()
+    input('Press any key')
+
+def find_book():
+    indent()
+    book_title = input('Enter the book title: ')
+    change_book = current_librarian.library.find_book_title(book_title)
+    return change_book
+
+def create_dict_librarians(librarians):
+    data_librarians = []
+    dict_librarian = {}
+    for libr in librarians:
+        dict_librarian = {
+            'librarian_name': libr.librarian,
+            'library_name': libr.library.library_name,
+            'list_books': []
+        }
+
+        list_books = libr.library.books_list
+
+        for book in list_books:
+            dict_librarian['list_books'].append({
+                'book_title': book.book_title,
+                'author': book.author,
+                'page_count': book.page_count,
+                'publication_year': book.publication_year
+            })
+
+        data_librarians.append(dict_librarian)
+    return data_librarians
+
+
+def save_data(librarians):
+    data_librarians = create_dict_librarians(librarians)
+    print(data_librarians)
+    with open('data.json', 'w') as file:
+        json.dump(data_librarians, file, indent=4)
+    input('Press any key ')
+
 book1 = Book("Book1", "Author1", 101, 2001)
 book2 = Book("Book2", "Author2", 102, 2002)
 book3 = Book("Book3", "Author3", 103, 2003)
@@ -121,6 +169,7 @@ library2 = Library("Library adult", book_list2)
 librarian1 = Librarian('Deny-1', library1)
 librarian2 = Librarian('Meny-2', library2)
 list_librarians = [librarian1, librarian2]
+
 
 
 while True:
@@ -160,22 +209,24 @@ while True:
                 print(f'Librarian {current_librarian.librarian}, Library "{current_librarian.library.library_name}"\n')
                 delete_book()
         case 6:
-            print('current_librarian = ', current_librarian)
+            # Спроба змінити назву книги
             if not current_librarian:
-                print()
-                print(' ' * 45, end="")
-                print('Librarian not selected\n')
-                input('Press any key')
+                display_message()
             else:
-                print('current_librarian', current_librarian.librarian)
-                print(current_librarian.library)
+                indent()
+                print(f'Librarian {current_librarian.librarian}, Library "{current_librarian.library.library_name}"\n')
+                change_book_name()
         case 7:
-            print('current_librarian = ', current_librarian)
+            # Пошук книги
             if not current_librarian:
-                print()
-                print(' ' * 45, end="")
-                print('Librarian not selected\n')
-                input('Press any key')
+                display_message()
             else:
-                print('current_librarian', current_librarian.librarian)
-                print(current_librarian.library)
+                indent()
+                print(f'Librarian {current_librarian.librarian}, Library "{current_librarian.library.library_name}"\n')
+                change_book = find_book()
+                print(change_book)
+                input('Press any key ')
+        case 8:
+            # Збереження у файл
+            indent()
+            save_data(list_librarians)

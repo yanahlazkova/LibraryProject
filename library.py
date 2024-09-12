@@ -44,6 +44,10 @@ class Library():
     def library_name(self):
         return self.__library_name
 
+    @property
+    def books_list(self):
+        return self.__books_list
+
     def __str__(self):
         if self.__books_list:
             i = 0

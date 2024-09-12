@@ -1,0 +1,44 @@
+[
+    {
+        "librarian_name": "Deny-1",
+        "library_name": "Library children",
+        "list_books": [
+            {
+                "book_title": "Book1",
+                "author": "Author1",
+                "page_count": 101,
+                "publication_year": 2001
+            },
+            {
+                "book_title": "Book2",
+                "author": "Author2",
+                "page_count": 102,
+                "publication_year": 2002
+            }
+        ]
+    },
+    {
+        "librarian_name": "Meny-2",
+        "library_name": "Library adult",
+        "list_books": [
+            {
+                "book_title": "Book1",
+                "author": "Author1",
+                "page_count": 101,
+                "publication_year": 2001
+            },
+            {
+                "book_title": "Book3",
+                "author": "Author3",
+                "page_count": 103,
+                "publication_year": 2003
+            },
+            {
+                "book_title": "New book",
+                "author": "author New book",
+                "page_count": 1232,
+                "publication_year": 2002
+            }
+        ]
+    }
+]
