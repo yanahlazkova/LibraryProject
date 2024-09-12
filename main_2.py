@@ -33,8 +33,20 @@ def display_menu():
         print(" " * 47, index + 1, menu)
     print()
     print('Select menu item: '.rjust(60, ' '), end='')
-    choice = int(input())
-    return choice
+    try:
+        # Чекаємо ввод користувача
+        choice = int(input())
+        # Перевіряємо, що число знаходиться в допустимому діапазоні
+        if 1 <= choice <= len(menu_items):
+            return choice
+        else:
+            indent()
+            print(f"Please enter a number between 1 and {len(menu_items)}.")
+
+    except ValueError:
+        indent()
+        print("Invalid input. Please enter a number.")
+
 
 def display_message():
     print()
