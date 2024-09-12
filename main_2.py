@@ -15,6 +15,7 @@ def display_menu():
         'List books',
         'Add book',
         'Delete book',
+        'Change book name',
         'Find book',
     ]
     print(border.rjust(80, " "))
@@ -63,7 +64,17 @@ def display_list_librarians(list_libr):
     print(' ' * 45, len(list_libr) + 1, 'EXIT')
     print('\n', ' ' * 45, end="")
 
+def add_book():
+    book_title = input('Enter book title: ')
+    author = input('Enter author: ')
+    page_count = int(input('Enter page count: '))
+    publication_year = int(input("Enter year of publication: "))
+    new_book = Book(book_title, author, page_count, publication_year)
+    current_librarian.library.add_book(new_book)
+    print(f'Added book: \n{new_book}')
+    print(f'List books of librarian {current_librarian.librarian} {current_librarian.library}')
 
+    input("Press any key: ")
 
 
 book1 = Book("Book1", "Author1", 101, 2001)
@@ -99,5 +110,44 @@ while True:
             else:
                 print('current_librarian', current_librarian.librarian)
                 print(current_librarian.library)
-
-
+        case 4:
+            print('current_librarian = ', current_librarian.librarian)
+            if not current_librarian:
+                print()
+                print(' ' * 45, end="")
+                print('Librarian not selected\n')
+                input('Press any key')
+            else:
+                print('current_librarian', current_librarian.librarian)
+                add_book()
+                print(current_librarian.library)
+        case 5:
+            print('current_librarian = ', current_librarian)
+            if not current_librarian:
+                print()
+                print(' ' * 45, end="")
+                print('Librarian not selected\n')
+                input('Press any key')
+            else:
+                print('current_librarian', current_librarian.librarian)
+                print(current_librarian.library)
+        case 6:
+            print('current_librarian = ', current_librarian)
+            if not current_librarian:
+                print()
+                print(' ' * 45, end="")
+                print('Librarian not selected\n')
+                input('Press any key')
+            else:
+                print('current_librarian', current_librarian.librarian)
+                print(current_librarian.library)
+        case 7:
+            print('current_librarian = ', current_librarian)
+            if not current_librarian:
+                print()
+                print(' ' * 45, end="")
+                print('Librarian not selected\n')
+                input('Press any key')
+            else:
+                print('current_librarian', current_librarian.librarian)
+                print(current_librarian.library)
