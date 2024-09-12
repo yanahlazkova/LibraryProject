@@ -169,18 +169,28 @@ def save_data(librarians):
         json.dump(data_librarians, file, indent=4)
     input('Press any key ')
 
-book1 = Book("Book1", "Author1", 101, 2001)
-book2 = Book("Book2", "Author2", 102, 2002)
-book3 = Book("Book3", "Author3", 103, 2003)
+def read_data_file():
+    if os.path.exists('data.json'):
+        with open('data.json', 'r') as file:
+            json_data = json.load(file)
+            return json_data
+    # else:
 
-book_list1 = [book1, book2]
-book_list2 = [book1, book3]
-library1 = Library("Library children", book_list1)
-library2 = Library("Library adult", book_list2)
+# book1 = Book("Book1", "Author1", 101, 2001)
+# book2 = Book("Book2", "Author2", 102, 2002)
+# book3 = Book("Book3", "Author3", 103, 2003)
+#
+# book_list1 = [book1, book2]
+# book_list2 = [book1, book3]
+# library1 = Library("Library children", book_list1)
+# library2 = Library("Library adult", book_list2)
+#
+# librarian1 = Librarian('Deny-1', library1)
+# librarian2 = Librarian('Meny-2', library2)
+# list_librarians = [librarian1, librarian2]
 
-librarian1 = Librarian('Deny-1', library1)
-librarian2 = Librarian('Meny-2', library2)
-list_librarians = [librarian1, librarian2]
+json_data = read_data_file()
+print(json_data)
 
 
 
