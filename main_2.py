@@ -204,7 +204,7 @@ def read_data_file():
 
 
 def add_new_librarian(list_all_library, list_all_librarians):
-    global current_librarian
+    global current_librarian, title_menu
     indent()
     librarian_name = input('Enter name: ')
     indent()
@@ -218,17 +218,21 @@ def add_new_librarian(list_all_library, list_all_librarians):
         input()
         list_all_library.append(choice_library)
         new_librarian = Librarian(librarian_name, list_all_library[choice_library - 1])
+        list_all_librarians.append(new_librarian)
+        current_librarian = new_librarian
+        title_menu = f'{current_librarian.librarian}, library: "{current_librarian.library.library_name}"'
+
         indent()
         print('Added new librarian:')
         indent()
-        print(f'Name: {new_librarian.librarian} works in library "{new_librarian.library.library_name}"')
+        print(f'Name: {new_librarian.librarian}, works in library "{new_librarian.library.library_name}"')
         indent()
         input("Press any key ")
-        return list_all_library, list_all_librarians
     else:
         indent()
         print('Nothing selected\nPress any key ', end="")
         input()
+    return list_all_library, list_all_librarians
 
 # book1 = Book("Book1", "Author1", 101, 2001)
 # book2 = Book("Book2", "Author2", 102, 2002)
