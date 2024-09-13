@@ -1,11 +1,13 @@
 # Класс створення меню
 class Menu:
+    item_exit = 5
     def __init__(self, menu_title, menu_list: list):
         self.__menu_title = menu_title
         self.__menu_list = menu_list
+        self.item_exit = len(menu_list)
 
-    # функція виводу Меню
     def display_menu(self):
+        # функція виводу Меню
         print()
         border = "*" * 40
         print(border.rjust(80, " "))
@@ -20,11 +22,14 @@ class Menu:
             print(" " * 47, index + 1, menu['item'])
 
         print()
-        choice = self.get_user_choice()
-        choice_item = self.get_choice_menu_item(self.__menu_list[choice - 1])
-        print(f"Go to menu {choice_item}")
+        choice = self.get_selected_item()
+        if choice == self.item_exit:
+            exit()
+        else:
+            choice_item = self.get_choice_menu_item(self.__menu_list[choice - 1])
+            print(f"Go to menu {choice_item}")
 
-        return choice_item
+            return choice_item
 
     def display_sub_menu(self):
         print("It's menu: ", self.__menu_title)
@@ -41,16 +46,16 @@ class Menu:
             print(" " * 47, index + 1, menu)
 
         print()
-        choice = self.get_user_choice()
+        choice = self.get_selected_item()
         choice_item = self.__menu_list[choice - 1]
         print(f"Go to {choice_item}")
 
         return choice_item
 
-    def get_user_choice(self):
+    def get_selected_item(self):
         while True:
             try:
-                # Чекаємо ввод користувача
+                # Чекаємо вибір користувача
                 choice = input(f'\n{" " * 40}Select menu item:\t')
                 choice = int(choice)
                 # Перевіряємо, що число знаходиться в допустимому діапазоні
