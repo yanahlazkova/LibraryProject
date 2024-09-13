@@ -189,10 +189,24 @@ def read_data_file():
 # librarian2 = Librarian('Meny-2', library2)
 # list_librarians = [librarian1, librarian2]
 
-json_data = read_data_file()
-print(json_data)
+def get_list_librarians():
+    json_data = read_data_file()
+    # print(json_data)
+
+    list_librarians = []
+    for librarian in json_data:
+        list_books = []
+        for book in librarian['list_books']:
+            obj_book = Book(book['book_title'], book['author'], book['page_count'], book['publication_year'])
+            list_books.append(obj_book)
+
+        library = Library(librarian['library_name'], list_books)
+        obj_librarian = Librarian(librarian['librarian_name'], library)
+        list_librarians.append(obj_librarian)
+    return list_librarians
 
 
+list_librarians = get_list_librarians()
 
 while True:
     choice_item = display_menu()
