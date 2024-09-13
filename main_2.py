@@ -18,7 +18,8 @@ def display_menu():
         'Delete book',
         'Change book name',
         'Find book',
-        'Save to file'
+        'Save to file',
+        'Add new librarian'
     ]
     print()
     print(border.rjust(80, " "))
@@ -83,6 +84,32 @@ def select_librarians(list_librarians):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
+
+def display_list_libraries(list_libr):
+    # Display list library
+    print('\n\n', ' ' * 45, 'LIST LIBRARIES:\n')
+
+    for index, library in enumerate(list_libr):
+        print(' ' * 45, index + 1, library.library_name)
+    print(' ' * 45, len(list_libr) + 1, 'EXIT')
+    print('\n', ' ' * 45, end="")
+
+
+def select_library(list_all_library):
+    display_list_libraries(list_all_library)
+    while True:
+        try:
+            # print(' ' * 45, end="")
+            choice = input('Select the library: ')
+            choice = int(choice)
+            if 1 <= choice <= len(list_all_library) + 1:
+                return choice
+            else:
+                print()
+                print(' ' * 45, end="")
+                print(f"Please enter a number between 1 and {len(list_librarians) + 1}")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
 def display_list_librarians(list_libr):
     # Display list librarians
@@ -174,7 +201,34 @@ def read_data_file():
         with open('data.json', 'r') as file:
             json_data = json.load(file)
             return json_data
-    # else:
+
+
+def add_new_librarian(list_all_library, list_all_librarians):
+    global current_librarian
+    indent()
+    librarian_name = input('Enter name: ')
+    indent()
+    choice_library = select_library(list_all_library)
+    if choice_library <= len(list_all_library):
+        print()
+        print(' ' * 35, 'Your choice:')
+        indent()
+        print(list_all_library[choice_library - 1].library_name)
+        print(' ' * 35, 'Press any key', end='')
+        input()
+        list_all_library.append(choice_library)
+        new_librarian = Librarian(librarian_name, list_all_library[choice_library - 1])
+        indent()
+        print('Added new librarian:')
+        indent()
+        print(f'Name: {new_librarian.librarian} works in library "{new_librarian.library.library_name}"')
+        indent()
+        input("Press any key ")
+        return list_all_library, list_all_librarians
+    else:
+        indent()
+        print('Nothing selected\nPress any key ', end="")
+        input()
 
 # book1 = Book("Book1", "Author1", 101, 2001)
 # book2 = Book("Book2", "Author2", 102, 2002)
@@ -194,6 +248,7 @@ def get_list_librarians():
     # print(json_data)
 
     list_librarians = []
+    list_library = []
     for librarian in json_data:
         list_books = []
         for book in librarian['list_books']:
@@ -201,12 +256,14 @@ def get_list_librarians():
             list_books.append(obj_book)
 
         library = Library(librarian['library_name'], list_books)
+        list_library.append(library)
+
         obj_librarian = Librarian(librarian['librarian_name'], library)
         list_librarians.append(obj_librarian)
-    return list_librarians
+    return list_librarians, list(set(list_library))
 
 
-list_librarians = get_list_librarians()
+list_librarians, list_library = get_list_librarians()
 
 while True:
     choice_item = display_menu()
@@ -266,3 +323,8 @@ while True:
             # Збереження у файл
             indent()
             save_data(list_librarians)
+
+        case 9:
+            # Add librarian
+            list_library, list_librarians = add_new_librarian(list_library, list_librarians)
+
