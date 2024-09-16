@@ -1,18 +1,5 @@
 from book import Book
-from menu import Menu
-from helpers import *
-
-# Display list librarians
-
-# Create MINE MENU
-menu_mine_items = [
-    {'item': 'Books', 'menu_title': 'MENU BOOKS'},
-    {'item': 'Library (children)', 'menu_title': 'MENU LIBRARY'},
-    {'item': 'Library (adult)', 'menu_title': 'MENU LIBRARY'},
-    {'item': 'Librarians', 'menu_title': 'MENU LIBRARIAN'},
-    {'item': 'EXIT', 'menu_title': 'EXIT'}
-]
-mine_menu = Menu('MINE MENU', menu_mine_items)
+from menu import *
 
 # Create MENU BOOKS
 menu_books_items = [
@@ -23,19 +10,18 @@ menu_books_items = [
     'List books',
     'Back to MAIN MENU'
 ]
-menu_books = Menu('MENU BOOKS', menu_books_items)
+menu_books = SubMenu('MENU BOOKS', menu_books_items)
 
 # Create MENU LIBRARIES
 menu_libraries_items = [
-    'Add book',
-    'Delete book',
-    'Find library',
     'List libraries',
-    'List book in library',
+    'Add library',
+    'Delete library',
+    'Find library',
     'Back to MAIN MENU'
 ]
 
-menu_libraries = Menu('MENU LIBRARY', menu_libraries_items)
+menu_libraries = SubMenu('MENU LIBRARY', menu_libraries_items)
 
 # Create MENU LIBRARIES
 # В меню бібліотекарів можна додати бібліотекаря, видалити, знайти, обрати бібліотекаря,
@@ -51,27 +37,36 @@ menu_librarians_items = [
     'List books'
 ]
 
-menu_librarians = Menu('MENU LIBRARIANS', menu_librarians_items)
+menu_librarians = SubMenu('MENU LIBRARIANS', menu_librarians_items)
+
+# Create MINE MENU
+menu_mine_items = [
+    {'item': 'Books', 'menu': menu_books},
+    {'item': 'Libraries', 'menu': menu_libraries},
+    # {'item': 'Library (adult)', 'menu': menu_},
+    {'item': 'Librarians', 'menu': menu_librarians},
+    {'item': 'EXIT', 'menu': 'EXIT'}
+]
+mine_menu = Menu('MINE MENU', menu_mine_items)
+
 
 def main_menu():
     while True:
-        choice_menu = mine_menu.display_menu()
-        match choice_menu:
-            case 'MENU BOOKS':
-                print(f'Choice {choice_menu}')
-                # choice_menu = menu_books.display_sub_menu()
-                sub_menu_books()
-            case 'MENU LIBRARY':
-                print(choice_menu)
+        mine_menu.display_menu()
+        choice_menu = mine_menu.get_user_choice()
+        if 1 <= choice_menu <= len(menu_mine_items) - 1:
+            print(f'Your choice: {menu_mine_items[choice_menu - 1]['item']}')
+            input('Press any key to continue ')
+            return menu_mine_items[choice_menu - 1]['menu']
 
-                print(f'Choice {choice_menu}')
-                choice_menu = menu_libraries.display_sub_menu()
-            case 'EXIT': break
+        elif choice_menu == len(menu_mine_items):
+            print('EXIT')
+            exit()
 
 
-def sub_menu_books():
+def submenu_books():
     while True:
-        choice_item = menu_books.display_sub_menu()
+        choice_item = menu_books.display_menu()
         match choice_item:
             case 'Add':
                 add_book()
@@ -85,5 +80,12 @@ def sub_menu_books():
                 print('Choice item ', choice_item)
             case 'Back to MAIN MENU': break
 
-# Display Mine Menu
-main_menu()
+
+# Вивести головне меню
+choice_menu = main_menu()
+
+print(choice_menu.menu_title)
+
+# Вивести підменю
+choice_menu.display_menu()
+
